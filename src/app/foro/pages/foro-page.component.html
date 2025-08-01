@@ -1,0 +1,63 @@
+<div class="foro-container">
+  <div class="foro-header">
+    <h2>Foro de Discusión</h2>
+    <button class="crear-topico-btn" (click)="irACrearTopico()">+ Crear Tópico</button>
+  </div>
+
+  <div class="filtros">
+    <input type="text" [(ngModel)]="textoBusqueda" (input)="aplicarFiltroAlEscribir()"
+      placeholder="Buscar por título del tópico..." class="input-busqueda" />
+<select [(ngModel)]="mostrarSoloMisTopicos" (change)="aplicarFiltroAlSeleccionar()" class="select-topicos">
+  <option [ngValue]="true">Mis Tópicos</option>
+  <option [ngValue]="false">Todos los Tópicos</option>
+</select>
+  </div>
+
+  <div *ngIf="topicosFiltrados.length === 0" class="sin-topicos">
+    <svg width="64" height="64" fill="currentColor" viewBox="0 0 20 20" class="icono-vacio">
+      <path fill-rule="evenodd"
+        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+        clip-rule="evenodd" />
+    </svg>
+    <p>No hay tópicos registrados.</p>
+    <p class="subtitulo">¡Sé el primero en crear una discusión!</p>
+  </div>
+
+  <div class="topico-lista">
+    <div *ngFor="let topico of topicosFiltrados; let i = index" class="topico-card"
+      [style.animation-delay]="(i * 0.1) + 's'" (click)="mostrarTopicosAlInicio(topico)">
+
+      <div class="sidebar">
+        <div class="avatar">
+          {{ obtenerInicial(topico.usuario) }}
+        </div>
+        <div class="resumen">
+          <p class="cantidad">{{ cantidadRespuestasPorTopico[topico.id] || 0 }}</p>
+          <p class="etiqueta">respuestas</p>
+        </div>
+      </div>
+
+      <div class="contenido-central">
+        <h3>{{ topico.titulo }}</h3>
+        <p class="mensaje">{{ topico.mensaje }}</p>
+        <div class="info-curso">{{ topico.nombreCurso }}</div>
+        <div class="meta">
+          <div class="meta-item">
+            <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clip-rule="evenodd" />
+            </svg>
+            <span>{{ topico.fechaCreacion | date:'short' }}</span>
+          </div>
+          <div class="meta-item">
+            <svg class="meta-icon" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            <span>{{ topico.usuario }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

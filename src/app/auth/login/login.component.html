@@ -1,0 +1,9 @@
+<div class="login-container">
+  <h2>Iniciar sesión</h2>
+  <form [formGroup]="form" (ngSubmit)="login()">
+    <input type="text" placeholder="Usuario o correo" formControlName="login">
+    <input type="password" placeholder="Contraseña" formControlName="contrasena">
+    <button type="submit" [disabled]="form.invalid">Entrar</button>
+  </form>
+  <p *ngIf="error" class="error">{{ error }}</p>
+</div>

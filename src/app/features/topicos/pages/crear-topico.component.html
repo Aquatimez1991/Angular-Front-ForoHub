@@ -1,0 +1,101 @@
+<div class="crear-topico-container">
+  
+  <!-- Header con avatar y saludo -->
+  <div class="user-header">
+    <div class="avatar-wrapper">
+      <img src="https://i.pravatar.cc/60" alt="avatar" class="avatar" />
+      <div class="avatar-status"></div>
+    </div>
+    <div class="user-info">
+      <div class="saludo">Hola, <strong>{{ nombreUsuario }}</strong></div>
+      <div class="subtitulo">¿Qué te gustaría discutir hoy?</div>
+    </div>
+  </div>
+
+  <!-- Formulario -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="topico-form">
+    
+    <!-- Campo Título -->
+    <div class="campo-grupo">
+      <label for="titulo" class="campo-label">
+        <svg class="label-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" clip-rule="evenodd"/>
+        </svg>
+        Título del tópico
+      </label>
+      <input
+        id="titulo"
+        type="text"
+        formControlName="titulo"
+        placeholder="Ej. ¿Cómo puedo implementar autenticación en Angular?"
+        class="campo-input"
+      />
+      <div class="campo-ayuda">Describe tu pregunta de forma clara y concisa</div>
+    </div>
+
+ <!-- Campo Mensaje -->
+<div class="campo-grupo">
+  <label for="mensaje" class="campo-label">
+    <svg class="label-icon" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"/>
+    </svg>
+    Mensaje
+  </label>
+
+  <textarea
+    id="mensaje"
+    formControlName="mensaje"
+    placeholder="Redacta tu pregunta con claridad. Puedes incluir contexto, código o dudas específicas."
+    rows="6"
+    class="campo-textarea"
+    (input)="actualizarContador()"
+  ></textarea>
+
+  <div class="campo-ayuda">
+    Proporciona el máximo contexto posible para obtener mejores respuestas
+  </div>
+
+  <div class="contador-caracteres">
+    <span [ngClass]="{
+    'limite-cerca': caracteres > 250 && caracteres<= 250,
+    'limite-excedido': caracteres > 250
+  }">
+      {{ caracteres || 0 }}/250
+    </span>
+  </div>
+</div>
+
+    <!-- Campo Curso -->
+    <div class="campo-grupo">
+      <label for="nombreCurso" class="campo-label">
+        <svg class="label-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.75 2.524z"/>
+        </svg>
+        Curso relacionado
+      </label>
+      <div class="select-wrapper">
+        <select id="nombreCurso" formControlName="nombreCurso" class="campo-select">
+          <option value="" disabled selected>Selecciona un curso</option>
+          <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+        </select>
+        <svg class="select-arrow" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="campo-ayuda">Ayuda a otros a encontrar tu pregunta en el contexto correcto</div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="acciones">
+      <button type="button" class="btn-cancelar" (click)="cancelar()">
+        Cancelar
+      </button>
+      <button type="submit" class="btn-publicar" [disabled]="form.invalid">
+        <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+        </svg>
+        Publicar Tópico
+      </button>
+    </div>
+  </form>
+</div>
