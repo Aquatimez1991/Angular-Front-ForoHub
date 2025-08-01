@@ -345,6 +345,11 @@
     font-size: 0.9rem;
   }
 
+  .btn-inicio {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
   .topico-card {
     padding: 1rem;
   }
@@ -401,3 +406,46 @@
     color: var(--text-muted);
   }
    }
+
+   
+   .btn-inicio {
+ padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-inicio::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-inicio:hover::before {
+  left: 100%;
+}
+
+.btn-inicio:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-light);
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}

@@ -4,17 +4,21 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpErrorResponse, HttpClientModule  } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../src/environments/environment';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, HttpClientModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   form: FormGroup;
   error: string | null = null;
+  mostrarContrasena: boolean = false;
+  cargando: boolean = false;
+   recordarme: boolean = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.form = this.fb.group({
@@ -40,4 +44,20 @@ export class LoginComponent {
       }
     });
   }
+
+  toggleMostrarContrasena() {
+    this.mostrarContrasena = !this.mostrarContrasena;
+  }
+
+  olvidoContrasena() {
+    // Aquí podrías implementar la lógica para manejar el olvido de contraseña
+    // Por ejemplo, redirigir a una página de recuperación de contraseña
+    this.router.navigate(['/recuperar-contrasena']);
+  }
+
+irARegistro() {
+    // Redirige al usuario a la página de registro
+    this.router.navigate(['/registro']);
+  }
+
 }

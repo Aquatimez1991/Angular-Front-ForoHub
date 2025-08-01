@@ -113,4 +113,9 @@ this.topicoService.getTopicosPorUsuario(idUsuario).subscribe({
       topico.titulo.toLowerCase().includes(texto)
     );
   }
+
+  volverAlLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
 }
