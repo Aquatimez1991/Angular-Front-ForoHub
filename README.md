@@ -1,6 +1,6 @@
 # Foro Hub - Angular Frontend
 
-![Login del foro](./assets/imagen.png)
+![Login del foro](./assets/imagen.jpg)
 
 ## 📋 Descripción
 
