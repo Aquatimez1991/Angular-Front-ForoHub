@@ -30,9 +30,33 @@ jobs:
     - name: 🔨 Build Angular app
       run: |
         npx ng build --configuration production --base-href="/Angular-Front-ForoHub/"
-        echo "Build completed. Checking dist folder:"
+        
+    - name: 🔍 Debug build output (DETAILED)
+      run: |
+        echo "=== ROOT DIRECTORY ==="
+        ls -la
+        echo ""
+        echo "=== DIST DIRECTORY ==="
         ls -la dist/
-        ls -la dist/angular-foro/
+        echo ""
+        echo "=== LOOKING FOR INDEX.HTML ==="
+        find . -name "index.html" -type f
+        echo ""
+        echo "=== ALL DIRECTORIES IN DIST ==="
+        find dist/ -type d
+        echo ""
+        echo "=== ALL FILES IN DIST ==="
+        find dist/ -type f
+        echo ""
+        echo "=== CHECKING ANGULAR-FORO DIRECTORY ==="
+        if [ -d "dist/angular-foro" ]; then
+          echo "angular-foro directory exists"
+          ls -la dist/angular-foro/
+          echo "Files in angular-foro:"
+          ls -la dist/angular-foro/ | wc -l
+        else
+          echo "angular-foro directory DOES NOT exist"
+        fi
         
     - name: 📄 Setup Pages
       uses: actions/configure-pages@v4
