@@ -1,8 +1,11 @@
+/* === Variables CSS === */
 :host {
   --primary-color: #3b82f6;
   --primary-hover: #2563eb;
   --primary-light: #dbeafe;
+  --secondary-color: #f1f5f9;
   --accent-color: #10b981;
+  --warning-color: #f59e0b;
   --danger-color: #ef4444;
   --success-color: #22c55e;
   --text-primary: #1e293b;
@@ -11,8 +14,9 @@
   --border-color: #e2e8f0;
   --border-focus: #3b82f6;
   --background-light: #ffffff;
-  --secondary-color: #f1f5f9;
+  --background-subtle: #f8fafc;
   --background-main: linear-gradient(135deg, #4e5c99 0%, #563d6d 100%);
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
   --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-large: 0 10px 25px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.25);
@@ -21,6 +25,7 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* === Layout principal === */
 .login-wrapper {
   min-height: 100vh;
   display: flex;
@@ -45,6 +50,7 @@
   animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* === Header del login === */
 .login-header {
   text-align: center;
   padding: 3rem 2.5rem 2rem;
@@ -65,6 +71,49 @@
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.logo-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-medium);
+  animation: pulse 2s infinite;
+}
+
+.logo-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.logo-text h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-text p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0.25rem 0 0 0;
+}
+
 .login-header h2 {
   font-size: 2rem;
   font-weight: 700;
@@ -78,6 +127,7 @@
   margin: 0;
 }
 
+/* === Formulario === */
 .login-form {
   padding: 2.5rem;
 }
@@ -87,12 +137,22 @@
 }
 
 .field-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 0.75rem;
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--text-primary);
 }
 
+.label-icon {
+  width: 18px;
+  height: 18px;
+  color: var(--primary-color);
+}
+
+/* === Input wrapper con efectos === */
 .input-wrapper {
   position: relative;
   width: 100%;
@@ -121,15 +181,33 @@
   transform: translateY(-1px);
 }
 
-.field-input::placeholder {
-  color: var(--text-muted);
-}
-
 .field-input.error-input {
   border-color: var(--danger-color);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
+.field-input::placeholder {
+  color: var(--text-muted);
+}
+
+.input-focus-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--border-radius);
+  pointer-events: none;
+  transition: var(--transition);
+  z-index: 1;
+}
+
+.field-input:focus + .toggle-password + .input-focus-ring,
+.field-input:focus + .input-focus-ring {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* === Botón mostrar/ocultar contraseña === */
 .toggle-password {
   position: absolute;
   right: 1rem;
@@ -150,6 +228,12 @@
   background: var(--primary-light);
 }
 
+.toggle-password svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* === Opciones del formulario === */
 .form-options {
   display: flex;
   justify-content: space-between;
@@ -214,6 +298,28 @@
   text-decoration: underline;
 }
 
+/* === Mensaje de error === */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--border-radius);
+  color: var(--danger-color);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  animation: shake 0.5s ease-in-out;
+}
+
+.error-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* === Botón de login === */
 .login-button {
   width: 100%;
   padding: 1rem 1.5rem;
@@ -238,7 +344,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: left 0.5s;
 }
 
@@ -255,9 +361,29 @@
   background: var(--text-muted);
   cursor: not-allowed;
   transform: none;
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--shadow-light);
 }
 
+.button-content,
+.loading-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.button-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.loading-spinner {
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+}
+
+/* === Footer del login === */
 .login-footer {
   padding: 0 2.5rem 2.5rem;
 }
@@ -306,7 +432,49 @@
   text-decoration: underline;
 }
 
-/* Animaciones */
+/* === Decoración de fondo === */
+.background-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.circle-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.circle-2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.circle-3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+/* === Animaciones === */
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -318,7 +486,52 @@
   }
 }
 
-/* Responsive */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(20px) rotate(240deg);
+  }
+}
+
+/* === Estados de hover mejorados === */
+.field-input:hover {
+  border-color: var(--primary-color);
+}
+
+.checkbox-wrapper:hover .checkmark {
+  border-color: var(--primary-color);
+}
+
+/* === Responsive === */
 @media (max-width: 768px) {
   .login-wrapper {
     padding: 1rem;
@@ -330,6 +543,15 @@
 
   .login-header {
     padding: 2rem 1.5rem 1.5rem;
+  }
+
+  .logo-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .login-header h2 {
+    font-size: 1.75rem;
   }
 
   .login-form {
@@ -375,6 +597,7 @@
   }
 }
 
+/* === Estados de validación === */
 .field-input.ng-valid.ng-touched {
   border-color: var(--success-color);
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
