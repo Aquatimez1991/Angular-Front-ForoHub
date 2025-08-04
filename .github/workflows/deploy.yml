@@ -32,6 +32,7 @@ jobs:
         npx ng build --configuration production --base-href="/Angular-Front-ForoHub/"
         echo "Build completed. Checking dist folder:"
         ls -la dist/
+        ls -la dist/angular-foro/
         
     - name: 📄 Setup Pages
       uses: actions/configure-pages@v3
@@ -39,7 +40,7 @@ jobs:
     - name: 📤 Upload build files
       uses: actions/upload-pages-artifact@v2
       with:
-        path: 'dist'
+        path: 'dist/angular-foro'
         
     - name: 🚀 Deploy to GitHub Pages
       id: deployment
