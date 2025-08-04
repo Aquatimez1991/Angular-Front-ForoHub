@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TopicoService, DatosListaTopico } from '../../topicos/services/topico.service';
+import { TopicoService, DatosListaTopico } from '../../services/topico.service';        
 import { DatePipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
-import { RespuestaService, DatosListaRespuesta } from '../../topicos/services/respuesta.service';
+import { RespuestaService, DatosListaRespuesta } from '../../services/respuesta.service';    
 
 @Component({
   selector: 'app-detalle-topico',

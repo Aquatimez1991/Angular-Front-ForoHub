@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TopicoService } from '../services/topico.service';
+import { TopicoService } from '../../services/topico.service';
 
 @Component({
   selector: 'app-crear-topico',

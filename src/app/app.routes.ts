@@ -1,24 +1,25 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
+import { AUTH_ROUTES } from './auth/auth.routes';
+import { AuthGuard } from './core/guards/auth.guard'; 
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full' 
+    redirectTo: 'auth/login', 
+    pathMatch: 'full'
   },
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'auth', // 
+    children: AUTH_ROUTES
   },
   {
     path: 'foro',
+    canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./features/topicos/topicos.routes').then(m => m.topicosRoutes)
+      import('../app/foro/foro.routes').then(m => m.FORO_ROUTES)
   },
   {
     path: '**',
-    redirectTo: 'login'
-  },
-
+    redirectTo: 'auth/login' 
+  }
 ];
