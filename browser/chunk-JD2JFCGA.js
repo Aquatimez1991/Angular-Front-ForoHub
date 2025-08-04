@@ -1,0 +1,1 @@
+import"./chunk-2NFLSA4Y.js";var t=[{path:"",loadComponent:()=>import("./chunk-UI77443K.js").then(o=>o.ForoPageComponent)},{path:"crear",loadComponent:()=>import("./chunk-LU6F5PSS.js").then(o=>o.CrearTopicoComponent)},{path:"topico/:id",loadComponent:()=>import("./chunk-H7W53JAZ.js").then(o=>o.DetalleTopicoComponent)}];export{t as FORO_ROUTES};
