@@ -31,20 +31,26 @@ jobs:
       run: |
         npx ng build --configuration production --base-href="/Angular-Front-ForoHub/"
       
-    - name: 📋 List build files (debug)
+    - name: 📋 Find build directory
+      id: find-build
       run: |
+        echo "Listing dist contents:"
         ls -la dist/
+        echo "Finding index.html:"
         find dist/ -name "index.html" -type f
-        echo "Contents of dist folder:"
-        ls -la dist/*/
-      
+        BUILD_DIR=$(find dist/ -type d -mindepth 1 -maxdepth 1 | head -1)
+        echo "Found build directory: $BUILD_DIR"
+        echo "build_dir=$BUILD_DIR" >> $GITHUB_OUTPUT
+        echo "Listing build directory contents:"
+        ls -la "$BUILD_DIR"
+        
     - name: 📄 Setup Pages
       uses: actions/configure-pages@v3
       
     - name: 📤 Upload build files
       uses: actions/upload-pages-artifact@v2
       with:
-        path: 'dist/angular-foro'
+        path: ${{ steps.find-build.outputs.build_dir }}
         
     - name: 🚀 Deploy to GitHub Pages
       id: deployment
