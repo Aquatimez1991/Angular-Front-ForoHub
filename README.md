@@ -2,6 +2,8 @@
 
 ![Login del foro](./assets/imagen.jpg)
 
+LINK DE DESPLIEGUE: https://aquatimez1991.github.io/Angular-Front-ForoHub/#/auth/login
+
 ## 📋 Descripción
 
 **Foro Hub** es una aplicación web de foro desarrollada con Angular que permite a los usuarios crear, gestionar y participar en discusiones temáticas. La aplicación cuenta con un sistema de autenticación, gestión de tópicos y respuestas, todo con una interfaz moderna y responsiva.
