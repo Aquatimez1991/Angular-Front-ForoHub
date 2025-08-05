@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -26,18 +27,22 @@ export class AuthService {
     }
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/login`, credentials)
-      .pipe(
-        tap(response => {
-          if (response.token) {
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('usuarioLogin', credentials.login);
-            this.isAuthenticatedSubject.next(true);
-          }
-        })
-      );
-  }
+login(credentials: any): Observable<any> {
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.post<any>(`${environment.apiUrl}/login`, credentials, { headers })
+    .pipe(
+      tap(response => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('usuarioLogin', credentials.login);
+          this.isAuthenticatedSubject.next(true);
+        }
+      })
+    );
+}
 
   logout(): void {
     localStorage.removeItem('token');
