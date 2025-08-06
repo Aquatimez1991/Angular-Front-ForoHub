@@ -7,6 +7,7 @@ import { RespuestaService } from '../../services/respuesta.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 
+
 @Component({
   selector: 'app-foro-page',
   standalone: true,
@@ -95,10 +96,6 @@ export class ForoPageComponent implements OnInit {
   }
 
   aplicarFiltroAlSeleccionar(): void {
-    this.aplicarFiltro();
-  }
-
-  aplicarFiltroAlEscribir(): void {
     this.aplicarFiltro();
   }
 
