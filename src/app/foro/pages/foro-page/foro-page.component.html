@@ -19,7 +19,9 @@
     Cerrar Sesión
   </button>
   <div class="filtros">
+    <input type="text" [(ngModel)]="textoBusqueda" (ngModelChange)="aplicarFiltroAlEscribir()"
       placeholder="Buscar por título del tópico..." class="input-busqueda" />
+
     <select [(ngModel)]="mostrarSoloMisTopicos" (change)="aplicarFiltroAlSeleccionar()" class="select-topicos">
       <option [ngValue]="true">Mis Tópicos</option>
       <option [ngValue]="false">Todos los Tópicos</option>

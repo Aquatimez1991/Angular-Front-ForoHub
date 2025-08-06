@@ -99,23 +99,26 @@ export class ForoPageComponent implements OnInit {
     this.aplicarFiltro();
   }
 
+  aplicarFiltroAlEscribir(): void {
+    this.aplicarFiltro();
+  }
+
   aplicarFiltro(): void {
     const conjunto = this.mostrarSoloMisTopicos ? this.misTopicos : this.topicos;
-
     if (!conjunto) {
       this.topicosFiltrados = [];
       return;
     }
-
-    const texto = this.textoBusqueda.toLowerCase();
+    const texto = this.textoBusqueda?.trim().toLowerCase() || '';
     this.topicosFiltrados = conjunto.filter(topico =>
-      topico.titulo.toLowerCase().includes(texto)
+      topico.titulo?.toLowerCase().includes(texto)
     );
   }
+
   volverAlLogin(): void {
     this.authService.logout()
   }
-    logout(): void {
+  logout(): void {
     this.authService.logout();
   }
 }
