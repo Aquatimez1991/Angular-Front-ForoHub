@@ -65,8 +65,7 @@ export class LoginComponent {
   }
 
 irARegistro() {
-    // Redirige al usuario a la página de registro
-    this.router.navigate(['/registro']);
+    this.router.navigate(['/auth/register']);
   }
 
 }

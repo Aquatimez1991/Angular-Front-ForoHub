@@ -99,9 +99,9 @@ mostrarModalEliminacion: boolean = false;
   }
 
   private formatearNombreDesdeLogin(autor: string): string {
-    const nombreEmail = autor.split('@')[0]; // elias.salgado
-    const partes = nombreEmail.split('.');   // ['elias', 'salgado']
-    return partes.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' '); // Elias Salgado
+    const nombreEmail = autor.split('@')[0]; 
+    const partes = nombreEmail.split('.');   
+    return partes.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' '); 
   }
 
   editarTopico(): void {
