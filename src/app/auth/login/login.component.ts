@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpClientModule  } from '@angular/commo
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../../../src/environments/environment';
 import { FormsModule } from '@angular/forms'; 
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent {
   cargando: boolean = false;
    recordarme: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private authService: AuthService ) {
     this.form = this.fb.group({
       login: ['', Validators.required],
       contrasena: ['', Validators.required]
@@ -28,14 +29,22 @@ export class LoginComponent {
   }
 
   login() {
+    if (this.form.invalid) return;
+    
+    this.cargando = true;
+    this.error = null;
+    
     const datos = this.form.value;
-    this.http.post<{ token: string }>(`${environment.apiUrl}/login`, datos).subscribe({
+    
+    this.authService.login(datos).subscribe({ 
       next: (resp) => {
         localStorage.setItem('token', resp.token);
-        localStorage.setItem('usuarioLogin', this.form.value.login); 
+        localStorage.setItem('usuarioLogin', this.form.value.login);
         this.router.navigate(['/foro']);
+        this.cargando = false;
       },
       error: (err: HttpErrorResponse) => {
+        this.cargando = false;
         if (err.status === 401) {
           this.error = 'Credenciales inválidas';
         } else {
@@ -56,8 +65,7 @@ export class LoginComponent {
   }
 
 irARegistro() {
-    // Redirige al usuario a la página de registro
-    this.router.navigate(['/registro']);
+    this.router.navigate(['/auth/register']);
   }
 
 }

@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TopicoService } from '../services/topico.service';
+import { TopicoService } from '../../services/topico.service';
 
 @Component({
   selector: 'app-crear-topico',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './crear-topico.component.html',
-   styleUrls: ['./crear-topico.component.css']
+  styleUrls: ['./crear-topico.component.css']
 })
 export class CrearTopicoComponent {
   form: FormGroup;
@@ -34,13 +34,13 @@ export class CrearTopicoComponent {
     }
   }
 
-    actualizarContador(): void {
+  actualizarContador(): void {
     const mensajeControl = this.form.get('mensaje');
     this.caracteres = mensajeControl?.value?.length || 0;
   }
 
 
-  onSubmit() {
+  onSubmitCrearTopico() {
     if (this.form.invalid) return;
 
     this.topicoService.crearTopico(this.form.value).subscribe({
@@ -55,8 +55,8 @@ export class CrearTopicoComponent {
   }
 
   private formatearNombreDesdeLogin(login: string): string {
-    const nombreEmail = login.split('@')[0]; // elias.salgado
-    const partes = nombreEmail.split('.');   // ['elias', 'salgado']
-    return partes.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' '); // Elias Salgado
+    const nombreEmail = login.split('@')[0]; 
+    const partes = nombreEmail.split('.');   
+    return partes.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' '); 
   }
 }

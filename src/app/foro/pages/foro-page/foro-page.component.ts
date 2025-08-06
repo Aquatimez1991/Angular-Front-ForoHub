@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { TopicoService, DatosListaTopico } from '../../features/topicos/services/topico.service';
+import { TopicoService, DatosListaTopico } from '../../services/topico.service';
 import { HttpClientModule } from '@angular/common/http';
-import { RespuestaService } from '../../features/topicos/services/respuesta.service';
+import { RespuestaService } from '../../services/respuesta.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth.service';
+
 
 @Component({
   selector: 'app-foro-page',
@@ -20,52 +22,53 @@ export class ForoPageComponent implements OnInit {
   textoBusqueda: string = '';
   cursosUnicos: string[] = [];
   filtro: string = '';
-  misTopicos: DatosListaTopico[] = []; 
-  mostrarSoloMisTopicos: boolean = true; 
-correoUsuarioLogueado: string = '';
+  misTopicos: DatosListaTopico[] = [];
+  mostrarSoloMisTopicos: boolean = true;
+  correoUsuarioLogueado: string = '';
 
   constructor(
     private topicoService: TopicoService,
     private router: Router,
-    private respuestaService: RespuestaService
-  ) {}
+    private respuestaService: RespuestaService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-  this.cargarTopicos();
-  const correo = localStorage.getItem('usuarioLogin');
-  this.correoUsuarioLogueado = correo ?? '';
-  this.cargarTopicos();
-    
+    this.cargarTopicos();
+    const correo = localStorage.getItem('usuarioLogin');
+    this.correoUsuarioLogueado = correo ?? '';
+    this.cargarTopicos();
+
   }
 
- cargarTopicos(): void {
-  this.topicoService.getTopicos().subscribe({
-    next: (data) => {
-      this.topicos = data.content;
-      this.misTopicos = this.topicos.filter(t => t.usuario === this.correoUsuarioLogueado);
-      this.aplicarFiltro();
-      this.topicos.forEach(topico => this.cantidadDeRespuestasEnForo(topico.id));
-    },
-    error: (err) => console.error('Error al cargar tópicos', err)
-  });
-}
-
- cargarMisTopicos(): void {
-  const idUsuario = Number(localStorage.getItem('usuarioId'));
-  if (!idUsuario) {
-    console.warn('No se encontró el ID del usuario logueado.');
-    return;
+  cargarTopicos(): void {
+    this.topicoService.getTopicos().subscribe({
+      next: (data) => {
+        this.topicos = data.content;
+        this.misTopicos = this.topicos.filter(t => t.usuario === this.correoUsuarioLogueado);
+        this.aplicarFiltro();
+        this.topicos.forEach(topico => this.cantidadDeRespuestasEnForo(topico.id));
+      },
+      error: (err) => console.error('Error al cargar tópicos', err)
+    });
   }
-  
 
-this.topicoService.getTopicosPorUsuario(idUsuario).subscribe({
-  next: (data) => {
-    this.misTopicos = data;
-    this.aplicarFiltro();
-  },
-  error: (err) => console.error('Error al cargar mis tópicos', err)
-});
-}
+  cargarMisTopicos(): void {
+    const idUsuario = Number(localStorage.getItem('usuarioId'));
+    if (!idUsuario) {
+      console.warn('No se encontró el ID del usuario logueado.');
+      return;
+    }
+
+
+    this.topicoService.getTopicosPorUsuario(idUsuario).subscribe({
+      next: (data) => {
+        this.misTopicos = data;
+        this.aplicarFiltro();
+      },
+      error: (err) => console.error('Error al cargar mis tópicos', err)
+    });
+  }
 
 
   cantidadDeRespuestasEnForo(idTopico: number): void {
@@ -96,10 +99,6 @@ this.topicoService.getTopicosPorUsuario(idUsuario).subscribe({
     this.aplicarFiltro();
   }
 
-  aplicarFiltroAlEscribir(): void {
-    this.aplicarFiltro();
-  }
-
   aplicarFiltro(): void {
     const conjunto = this.mostrarSoloMisTopicos ? this.misTopicos : this.topicos;
 
@@ -113,9 +112,10 @@ this.topicoService.getTopicosPorUsuario(idUsuario).subscribe({
       topico.titulo.toLowerCase().includes(texto)
     );
   }
-
   volverAlLogin(): void {
-    this.router.navigate(['/login']);
+    this.authService.logout()
   }
-
+    logout(): void {
+    this.authService.logout();
+  }
 }

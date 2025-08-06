@@ -1,24 +1,30 @@
 <div class="foro-container">
   <div class="foro-header">
     <button class="btn-inicio" (click)="volverAlLogin()">
-  <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
-    <path fill-rule="evenodd" d="M3 9a1 1 0 011-1h10a1 1 0 110 2H4a1 1 0 01-1-1zm7-5a1 1 0 10-2 0v4a1 1 0 002 0V4z" clip-rule="evenodd"/>
-  </svg>
-  Volver al Inicio
-</button>
+      <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M3 9a1 1 0 011-1h10a1 1 0 110 2H4a1 1 0 01-1-1zm7-5a1 1 0 10-2 0v4a1 1 0 002 0V4z"
+          clip-rule="evenodd" />
+      </svg>
+      Volver al Inicio
+    </button>
     <h2>Foro de Discusión</h2>
     <button class="crear-topico-btn" (click)="irACrearTopico()">+ Crear Tópico</button>
   </div>
-
+  <button (click)="logout()" class="logout-btn header-logout">
+    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z" />
+      <path d="m10.5 8.5-.5-.5L8.5 6.5a.5.5 0 0 1 .5-.5h5.5a.5.5 0 0 1 0 1H9.5v.5h5.5a.5.5 0 0 1 0 1H9v.5L10.5 8.5z" />
+    </svg>
+    Cerrar Sesión
+  </button>
   <div class="filtros">
-    <input type="text" [(ngModel)]="textoBusqueda" (input)="aplicarFiltroAlEscribir()"
       placeholder="Buscar por título del tópico..." class="input-busqueda" />
-<select [(ngModel)]="mostrarSoloMisTopicos" (change)="aplicarFiltroAlSeleccionar()" class="select-topicos">
-  <option [ngValue]="true">Mis Tópicos</option>
-  <option [ngValue]="false">Todos los Tópicos</option>
-</select>
+    <select [(ngModel)]="mostrarSoloMisTopicos" (change)="aplicarFiltroAlSeleccionar()" class="select-topicos">
+      <option [ngValue]="true">Mis Tópicos</option>
+      <option [ngValue]="false">Todos los Tópicos</option>
+    </select>
   </div>
-
   <div *ngIf="topicosFiltrados.length === 0" class="sin-topicos">
     <svg width="64" height="64" fill="currentColor" viewBox="0 0 20 20" class="icono-vacio">
       <path fill-rule="evenodd"
@@ -28,7 +34,6 @@
     <p>No hay tópicos registrados.</p>
     <p class="subtitulo">¡Sé el primero en crear una discusión!</p>
   </div>
-
   <div class="topico-lista">
     <div *ngFor="let topico of topicosFiltrados; let i = index" class="topico-card"
       [style.animation-delay]="(i * 0.1) + 's'" (click)="mostrarTopicosAlInicio(topico)">
@@ -42,7 +47,6 @@
           <p class="etiqueta">respuestas</p>
         </div>
       </div>
-
       <div class="contenido-central">
         <h3>{{ topico.titulo }}</h3>
         <p class="mensaje">{{ topico.mensaje }}</p>
