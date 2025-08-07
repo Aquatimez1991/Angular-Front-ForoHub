@@ -10,10 +10,5 @@ export const AUTH_ROUTES: Routes = [
     path: 'register',
     loadComponent: () =>
       import('./create-user/create-user.component').then(c => c.CreateUserComponent)
-  },
-  {
-    path: 'crear-usuario',
-    loadComponent: () =>
-      import('./create-user/create-user.component').then(c => c.CreateUserComponent)
   }
 ];

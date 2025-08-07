@@ -64,8 +64,7 @@ export class LoginComponent {
     this.router.navigate(['/recuperar-contrasena']);
   }
 
-irARegistro() {
+irARegistro(): void {
     this.router.navigate(['/auth/register']);
   }
-
 }

@@ -14,7 +14,7 @@ export interface User {
 @Injectable({ providedIn: 'root' })
 export class UserService {
     private http = inject(HttpClient);
-    private apiUrl = environment.apiUrl + '/usuarios';
+    private apiUrl = environment.apiUrl;
     
     crearUsuario(usuario: User): Observable<any> {
         return this.http.post(`${this.apiUrl}/usuarios`, usuario);

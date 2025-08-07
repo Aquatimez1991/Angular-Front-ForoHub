@@ -14,29 +14,32 @@ import { UserService } from '../services/user.service';
 export class CreateUserComponent {
 
   form: FormGroup;
-  
-  constructor( 
+
+  constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router ) 
-    {
+    private router: Router) {
     this.form = this.fb.group({
-      titulo: ['', Validators.required],
-      mensaje: ['', Validators.required],
-      nombreCurso: ['', Validators.required]
+      login: ['', Validators.required],
+      contrasena: ['', Validators.required],
+      activo: [true, Validators.required]
     });
+
   }
 
- 
-  irAlLogin(): void {
+  volverAlLogin(): void {
+    const modal = document.getElementById('successModal') as HTMLElement;
+    if (modal) modal.style.display = 'none';
     this.router.navigate(['/auth/login']);
   }
 
- onSubmitCrearUsuario() {
+  onSubmitCrearUsuario() {
     if (this.form.invalid) return;
-
     this.userService.crearUsuario(this.form.value).subscribe({
-      next: () => this.router.navigate(['/foro']),
+      next: () => {
+        const modal = document.getElementById('successModal') as HTMLElement;
+        if (modal) modal.style.display = 'flex';
+      },
       error: (err) => console.error('Error al registrar usuario', err)
     });
   }

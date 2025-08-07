@@ -1,1 +1,42 @@
-<p>create-user works!</p>
+<div class="create-user-container">
+  <h2 class="title">Crear nueva cuenta</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmitCrearUsuario()" class="form">
+    
+    <div class="form-group">
+      <label for="login">Usuario</label>
+      <input id="login" formControlName="login" type="text" placeholder="Ingresa tu usuario" />
+      <div class="error" *ngIf="form.get('login')?.invalid && form.get('login')?.touched">
+        El campo usuario es obligatorio.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="contrasena">Contraseña</label>
+      <input id="contrasena" formControlName="contrasena" type="password" placeholder="Ingresa tu contraseña" />
+      <div class="error" *ngIf="form.get('contrasena')?.invalid && form.get('contrasena')?.touched">
+        El campo contraseña es obligatorio.
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn-registrar"[disabled]="form.invalid">Registrar</button>
+      <button type="button" class="cancel-btn" (click)="volverAlLogin()">Cancelar</button>
+    </div>
+  </form>
+
+  <div class="login-prompt">
+    <span>¿Ya tienes una cuenta?</span>
+    <a href="#" class="signup-link" (click)="volverAlLogin(); $event.preventDefault()">Inicia sesión</a>
+  </div>
+</div>
+
+<!-- Modal de Confirmación de Registro -->
+<div id="successModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h2>¡Registro exitoso!</h2>
+    <p>El usuario fue creado correctamente.</p>
+    <button class="btn-aceptar" (click)="volverAlLogin()">Aceptar</button>
+  </div>
+</div>
+
